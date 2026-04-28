@@ -43,3 +43,26 @@ results_df.to_csv('/Users/kokonenn/Downloads/Actuarial_Results.csv', index=False
     
 print("Done! Open 'Actuarial_Results.csv' in your Downloads folder to see all companies.")    
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+clean_df = results_df.copy()
+clean_df = clean_df[np.isfinite(clean_df['IBNR Reserve'])]
+
+lower_bound = clean_df['IBNR Reserve'].quantile(0.05)
+upper_bound = clean_df['IBNR Reserve'].quantile(0.95)
+plot_data = clean_df[clean_df['IBNR Reserve'].between(lower_bound, upper_bound)]
+
+plt.figure(figsize=(10, 6))
+plt.hist(plot_data['IBNR Reserve'], bins=30, color='#007acc', edgecolor='white')
+
+plt.axvline(0, color='red', linestyle='--', label='Breakeven (Redundant vs Deficient)')
+
+plt.title('Industry Reserve Adequacy: IBNR Distribution', fontsize=14)
+plt.xlabel('Reserve Amount ($)', fontsize=12)
+plt.ylabel('Number of Companies', fontsize=12)
+plt.legend()
+plt.grid(axis='y', alpha=0.3)
+
+plt.savefig('/Users/kokonenn/Desktop/reserve_distribution.png')
+plt.show() 
