@@ -1,15 +1,11 @@
-# Actuarial-Loss-Reserving-Automation
-Automated Cross-Segment IBNR reserve analysis across multiple insurance lines of business (LOBs) using the Chain Ladder Method on CAS/NAIC industry data
-![Industry Reserve Distribution](reserve_distribution.png)
-Algorithm: Stochastic Chain Ladder Method
-Data Source: CAS Commercial Auto Data Set – 2025 Updated
-Validation: Output cross referenced with manual Excel Run off triangles to ensure accuracy
-### Data Pipeline & Architecture
+# Automated IBNR Analysis & Stochastic Volatility Modeling
+This repository provides a production-ready pipeline for calculating IBNR reserves using the Mack Chain Ladder method. By leveraging the CAS/NAIC industry datasets, this tool automates the construction of loss development triangles and quantifies reserve uncertainty through stochastic error estimation.
+# Methodology & Algorithm
 The system utilizes a **Data-Agnostic pipeline**:
-1. **Batch Loading:** Uses `glob` and `os` to automatically discover and process any CAS-formatted CSV in the `/data` directory.
-2. **Dynamic Labeling:** Automatically extracts Line of Business (LOB) metadata from filenames to categorize results.
-3. **Aggregated Reporting:** Concatenates individual company results into a master industry benchmark file for cross-segment comparison.
-## How to Run
+1. Point Estimation: Utilizes volume-weighted age-to-age factors to project ultimate losses.
+2. Stochastic Risk: Calculates the Mack Standard Error (SE) to provide a measure of parameter and process risk.
+3. Relative Volatility: Derives the Coefficient of Variation (CV) to compare the risk profile across different Lines of Business (LOBs).
+# How to Run
 1. Ensure Python 3.x and pandas, numpy, matplotlib are installed. pip install pandas numpy matplotlib
 2. Data Preparation
   Create a folder named CAS_Data on your local machine.
